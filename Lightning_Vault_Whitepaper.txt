@@ -1,0 +1,113 @@
+⚡ Lightning Vault Consensus Whitepaper
+
+1.  Overview
+
+Lightning Vault introduces a novel consensus mechanism called
+Proof-of-Vault (PoV), a hybrid between Proof-of-Work (PoW) and
+time-locked Proof-of-Stake models. Unlike traditional blockchains, PoV
+ties economic commitment and time duration directly into mining power
+and reward distribution.
+
+This design creates a system where: - Hash power secures the chain,
+ensuring blocks are computationally verified. - Vaults (time-locked
+balances) grant long-term economic weight, incentivizing users to commit
+capital for extended periods. - Misbehavior is punished via vault
+slashing, reducing the likelihood of consensus attacks.
+
+2.  Proof-of-Vault Mechanics
+
+2.1 Vault Weight Calculation
+
+Each vault contributes to mining power based on amount locked ×
+duration:
+
+Wvault = A × D
+
+Where: - A = Amount locked (in LVT) - D = Lock duration in days
+
+The effective mining weight for an address is the sum of all its active
+vaults:
+
+Waddress = Σ (Ai × Di) for all active vaults
+
+2.2 Reward Distribution
+
+Each block has a base reward R, subject to halving every 4.5 years.
+Rewards are distributed as follows:
+
+-   If vaults exist: Rminer = R × (Wminer / Wnetwork)
+
+-   If no vaults exist: Miner receives the full base reward.
+
+2.3 Reward Halving
+
+The block reward halves every 4.5 years:
+
+Rt = R0 / 2^n
+
+Where: - R0 = 10 LVT (initial reward) - n = number of halving periods
+elapsed - Thalving = 4.5 years
+
+2.4 Empty Block Mining
+
+Blocks can be mined without transactions, ensuring: - The chain
+continues progressing even with low activity. - Miners remain
+incentivized via block rewards.
+
+3.  Security & Slashing
+
+To prevent dishonest behavior: - Mining proofs are bound to the miner’s
+address, preventing proof reuse. - If a miner submits an invalid block,
+their active vaults are slashed (burned).
+
+Slashing Formula: Sminer = Σ (Ai) for all active vaults of miner
+
+This creates strong disincentives for cheating, as miners risk losing
+both future rewards and their locked capital.
+
+4.  Difficulty Adjustment
+
+Mining difficulty adjusts dynamically every ~10 blocks: - If blocks are
+mined too quickly → difficulty increases. - If blocks are too slow →
+difficulty decreases.
+
+This stabilizes average block time around 60 seconds.
+
+5.  Advantages of PoV
+
+-   Economic Security: Attackers must lock significant funds for years.
+-   Incentivized Loyalty: Long-term vaults align miner interests with
+    network health.
+-   Hybrid Flexibility: Falls back to PoW if no vaults exist.
+-   Built-in Punishment: Slashing ensures accountability.
+
+6.  Comparison with Existing Models
+
+  ------------------------------------------------------------------------------
+  Mechanism     Secures via    Weakness         Lightning Vault Advantage
+  ------------- -------------- ---------------- --------------------------------
+  PoW (Bitcoin) Energy cost    Energy waste,    Adds vault-based economic
+                               centralization   commitment
+
+  PoS           Token stake    Easy unstaking,  Vaults require time commitment
+  (Ethereum)                   whales dominate  
+
+  PoC (Chia)    Storage space  Hardware         Purely financial commitment
+                               dependency       
+
+  PoV           Hash power +   —                First hybrid model using
+  (Lightning)   Vaults                          time-locked vaults
+  ------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+© 2025 Lightning Vault. All Rights Reserved.
+
+This document and the concepts contained herein are the intellectual
+property of Lightning Vault. No part of this publication may be
+reproduced, distributed, or transmitted in any form or by any means,
+including photocopying, recording, or other electronic or mechanical
+methods, without the prior written permission of Lightning Vault, except
+in the case of brief quotations used for non-commercial purposes.
+
+Lightning Vault™ and Proof-of-Vault™ are trademarks of Lightning Vault.
