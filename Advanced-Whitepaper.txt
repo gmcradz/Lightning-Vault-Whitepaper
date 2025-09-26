@@ -1,0 +1,119 @@
+📄 Advanced Technical Whitepaper (Developer Version)
+
+Lightning Vault: A Proof-of-Vault Consensus Blockchain
+
+Abstract
+
+Lightning Vault introduces Proof-of-Vault (PoV), a hybrid consensus model combining Proof-of-Work’s cryptographic fairness with staking principles through token vaults. Mining power derives from computational proofs and locked vault balances, aligning incentives between miners, long-term holders, and the ecosystem treasury.
+
+1. System Architecture
+
+Language: Python (Flask-based node, Waitress WSGI server).
+
+Networking: REST + Ethereum JSON-RPC compatibility on port 8545.
+
+Persistence: JSON-based blockchain state, with backups.
+
+VM Integration: Experimental EVM engine for smart contract support.
+
+2. Consensus: Proof-of-Vault (PoV)
+
+PoW Function:
+
+Payload = new_proof² - previous_proof² : miner_address.
+
+SHA-256 hash required to meet difficulty.
+
+Vault Weight:
+
+Mining rewards scale with vault weight = amount * lock_duration_days.
+
+Bonus tiers (0–3) grant higher mining efficiency based on vault share of network weight.
+
+Rewards Distribution:
+
+Base reward halves every 4.5 years.
+
+Split: 30% miner, 70% vaults, 1% treasury.
+
+Vault Slashing: Invalid PoW attempts burn all active vaults of offending miner.
+
+3. Tokenomics
+
+Ticker: LVT
+
+Max Supply: 140,000,000 LVT
+
+Premine: 20% allocated to founder addresses at genesis.
+
+Halving Schedule: ~4.5 years per halving cycle.
+
+Treasury Address: 0x0000000000000000000000000000000000000fee
+
+4. Vault System
+
+Vault Types: Time-locked MAIN token vaults.
+
+Interest Rate:
+
+Base: 5% annual.
+
+Bonus: up to +2% for duration, +1% for large deposits.
+
+Unlock: Funds + interest released after expiry, subject to supply cap.
+
+Penalty: Vaults can be slashed for invalid miner proofs.
+
+5. Transactions & Blocks
+
+Transaction Types: transfer, mining_reward, nft_mint, nft_transfer, genesis.
+
+Merkle Root: Ensures transaction integrity.
+
+Mempool: Pending transactions capped at 100 per block.
+
+Validation: Double-spend protection, NFT validation, vault balance checks.
+
+6. NFTs
+
+Native NFT contracts with:
+
+deploy, mint, transfer, ownerOf, balanceOf, tokenURI.
+
+Minting requires 10 LVT fee, credited to treasury.
+
+7. Governance
+
+Placeholder proposals & voting routes integrated (/governance/*).
+
+Future upgrades: On-chain binding governance.
+
+8. Ethereum Compatibility
+
+Supported RPC Methods: eth_getBalance, eth_blockNumber, eth_getBlockByNumber, eth_sendTransaction, eth_sendRawTransaction, etc.
+
+Wallet Integration: MetaMask support via custom chain configuration (ChainID 296070).
+
+9. Security & Validation
+
+Merkle Proof Validation for all transactions.
+
+Vault Slashing against invalid proofs.
+
+Backup & Recovery on corrupted state files.
+
+Sybil Resistance via PoW + vault locking.
+
+10. Roadmap
+
+Q4 2025: Wallet release, vault system, NFT support.
+
+Q1 2026: Explorer + advanced governance.
+
+Q2 2026: Smart contracts via EVM engine.
+
+Q3 2026: DeFi integrations & bridges.
+
+⚡ Lightning Vault is not just a blockchain. It’s a vault for your future.
+
+👉 Website: lightningvault.co.uk

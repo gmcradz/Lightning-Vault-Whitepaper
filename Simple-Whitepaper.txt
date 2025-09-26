@@ -1,0 +1,57 @@
+📄 Simplified Whitepaper (Community Version)
+
+Lightning Vault (LVT): The Proof-of-Vault Blockchain
+
+Overview
+
+Lightning Vault is a next-generation blockchain built for security, fairness, and community growth. Unlike traditional Proof-of-Work or Proof-of-Stake chains, Lightning Vault introduces Proof-of-Vault (PoV): a consensus where users secure the network by locking tokens in vaults.
+
+Key Features
+
+⚡ Proof-of-Vault Consensus: Miners gain rewards not only by providing computing power but also by holding locked tokens in vaults.
+
+🔒 Vaults: Lock your tokens for set durations and earn interest + mining power.
+
+⛏️ Mining Rewards: Each block splits rewards:
+
+30% → Miner
+
+70% → Vault owners (proportional to lock size/duration)
+
+1% → Treasury for long-term ecosystem support
+
+🪙 Token Supply:
+
+Fixed total supply: 140,000,000 LVT
+
+20% premine to founders for development
+
+Halving every 4.5 years, reducing block rewards
+
+🖼️ NFTs: On-chain NFT minting, transfers, and contract creation with simple APIs.
+
+📊 Governance: Vote on proposals to shape the future of Lightning Vault.
+
+🔍 Explorer & Wallet: Integrated web wallet with balance, transactions, mining, vaults, and explorer.
+
+Why Lightning Vault?
+
+✅ Fair – Rewards distributed to vault owners, not just hardware miners.
+
+✅ Sustainable – Block rewards decrease over time, respecting supply cap.
+
+✅ Accessible – Easy wallet creation, NFT support, and MetaMask compatibility.
+
+✅ Secure – Advanced chain validation with Merkle proofs, vault penalties, and double-spend prevention.
+
+Use Cases
+
+Earn passive rewards by locking tokens.
+
+Mine new blocks while supporting network security.
+
+Create, mint, and trade NFTs directly on-chain.
+
+Build DApps with JSON-RPC Ethereum compatibility.
+
+👉 Join today:
