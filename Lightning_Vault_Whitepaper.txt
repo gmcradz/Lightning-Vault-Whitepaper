@@ -1,113 +1,120 @@
-⚡ Lightning Vault Consensus Whitepaper
+📄 Advanced Technical Whitepaper (Developer Version)
 
-1.  Overview
+Lightning Vault: A Proof-of-Vault Consensus Blockchain
 
-Lightning Vault introduces a novel consensus mechanism called
-Proof-of-Vault (PoV), a hybrid between Proof-of-Work (PoW) and
-time-locked Proof-of-Stake models. Unlike traditional blockchains, PoV
-ties economic commitment and time duration directly into mining power
-and reward distribution.
+Abstract
 
-This design creates a system where: - Hash power secures the chain,
-ensuring blocks are computationally verified. - Vaults (time-locked
-balances) grant long-term economic weight, incentivizing users to commit
-capital for extended periods. - Misbehavior is punished via vault
-slashing, reducing the likelihood of consensus attacks.
+Lightning Vault introduces Proof-of-Vault (PoV), a hybrid consensus model combining Proof-of-Work’s cryptographic fairness with staking principles through token vaults. Mining power derives from computational proofs and locked vault balances, aligning incentives between miners, long-term holders, and the ecosystem treasury.
 
-2.  Proof-of-Vault Mechanics
+1. System Architecture
 
-2.1 Vault Weight Calculation
+Language: Python (Flask-based node, Waitress WSGI server).
 
-Each vault contributes to mining power based on amount locked ×
-duration:
+Networking: REST + Ethereum JSON-RPC compatibility on port 8545.
 
-Wvault = A × D
+Persistence: JSON-based blockchain state, with backups.
 
-Where: - A = Amount locked (in LVT) - D = Lock duration in days
+VM Integration: Experimental EVM engine for smart contract support.
 
-The effective mining weight for an address is the sum of all its active
-vaults:
+2. Consensus: Proof-of-Vault (PoV)
 
-Waddress = Σ (Ai × Di) for all active vaults
+PoW Function:
 
-2.2 Reward Distribution
+Payload = new_proof² - previous_proof² : miner_address.
 
-Each block has a base reward R, subject to halving every 4.5 years.
-Rewards are distributed as follows:
+SHA-256 hash required to meet difficulty.
 
--   If vaults exist: Rminer = R × (Wminer / Wnetwork)
+Vault Weight:
 
--   If no vaults exist: Miner receives the full base reward.
+Mining rewards scale with vault weight = amount * lock_duration_days.
 
-2.3 Reward Halving
+Bonus tiers (0–3) grant higher mining efficiency based on vault share of network weight.
 
-The block reward halves every 4.5 years:
+Rewards Distribution:
 
-Rt = R0 / 2^n
+Base reward halves every 4.5 years.
 
-Where: - R0 = 10 LVT (initial reward) - n = number of halving periods
-elapsed - Thalving = 4.5 years
+Split: 30% miner, 70% vaults, 1% treasury.
 
-2.4 Empty Block Mining
+Vault Slashing: Invalid PoW attempts burn all active vaults of offending miner.
 
-Blocks can be mined without transactions, ensuring: - The chain
-continues progressing even with low activity. - Miners remain
-incentivized via block rewards.
+3. Tokenomics
 
-3.  Security & Slashing
+Ticker: LVT
 
-To prevent dishonest behavior: - Mining proofs are bound to the miner’s
-address, preventing proof reuse. - If a miner submits an invalid block,
-their active vaults are slashed (burned).
+Max Supply: 140,000,000 LVT
 
-Slashing Formula: Sminer = Σ (Ai) for all active vaults of miner
+Premine: 20% allocated to founder addresses at genesis.
 
-This creates strong disincentives for cheating, as miners risk losing
-both future rewards and their locked capital.
+Halving Schedule: ~4.5 years per halving cycle.
 
-4.  Difficulty Adjustment
+Treasury Address: 0x0000000000000000000000000000000000000fee
 
-Mining difficulty adjusts dynamically every ~10 blocks: - If blocks are
-mined too quickly → difficulty increases. - If blocks are too slow →
-difficulty decreases.
+4. Vault System
 
-This stabilizes average block time around 60 seconds.
+Vault Types: Time-locked MAIN token vaults.
 
-5.  Advantages of PoV
+Interest Rate:
 
--   Economic Security: Attackers must lock significant funds for years.
--   Incentivized Loyalty: Long-term vaults align miner interests with
-    network health.
--   Hybrid Flexibility: Falls back to PoW if no vaults exist.
--   Built-in Punishment: Slashing ensures accountability.
+Base: 5% annual.
 
-6.  Comparison with Existing Models
+Bonus: up to +2% for duration, +1% for large deposits.
 
-  ------------------------------------------------------------------------------
-  Mechanism     Secures via    Weakness         Lightning Vault Advantage
-  ------------- -------------- ---------------- --------------------------------
-  PoW (Bitcoin) Energy cost    Energy waste,    Adds vault-based economic
-                               centralization   commitment
+Unlock: Funds + interest released after expiry, subject to supply cap.
 
-  PoS           Token stake    Easy unstaking,  Vaults require time commitment
-  (Ethereum)                   whales dominate  
+Penalty: Vaults can be slashed for invalid miner proofs.
 
-  PoC (Chia)    Storage space  Hardware         Purely financial commitment
-                               dependency       
+5. Transactions & Blocks
 
-  PoV           Hash power +   —                First hybrid model using
-  (Lightning)   Vaults                          time-locked vaults
-  ------------------------------------------------------------------------------
+Transaction Types: transfer, mining_reward, nft_mint, nft_transfer, genesis.
 
-------------------------------------------------------------------------
+Merkle Root: Ensures transaction integrity.
 
-© 2025 Lightning Vault. All Rights Reserved.
+Mempool: Pending transactions capped at 100 per block.
 
-This document and the concepts contained herein are the intellectual
-property of Lightning Vault. No part of this publication may be
-reproduced, distributed, or transmitted in any form or by any means,
-including photocopying, recording, or other electronic or mechanical
-methods, without the prior written permission of Lightning Vault, except
-in the case of brief quotations used for non-commercial purposes.
+Validation: Double-spend protection, NFT validation, vault balance checks.
 
-Lightning Vault™ and Proof-of-Vault™ are trademarks of Lightning Vault.
+6. NFTs
+
+Native NFT contracts with:
+
+deploy, mint, transfer, ownerOf, balanceOf, tokenURI.
+
+Minting requires 10 LVT fee, credited to treasury.
+
+7. Governance
+
+Placeholder proposals & voting routes integrated (/governance/*).
+
+Future upgrades: On-chain binding governance.
+
+8. Ethereum Compatibility
+
+Supported RPC Methods: eth_getBalance, eth_blockNumber, eth_getBlockByNumber, eth_sendTransaction, eth_sendRawTransaction, etc.
+
+Wallet Integration: MetaMask support via custom chain configuration (ChainID 296070).
+
+9. Security & Validation
+
+Merkle Proof Validation for all transactions.
+
+Vault Slashing against invalid proofs.
+
+Backup & Recovery on corrupted state files.
+
+Sybil Resistance via PoW + vault locking.
+
+10. Roadmap
+
+Q4 2025: Wallet release, vault system, NFT support.
+
+Q1 2026: Explorer + advanced governance.
+
+Q2 2026: Smart contracts via EVM engine.
+
+Q3 2026: DeFi integrations & bridges.
+
+⚡ Lightning Vault is not just a blockchain. It’s a vault for your future.
+
+
+👉 Website: lightningvault.co.uk
