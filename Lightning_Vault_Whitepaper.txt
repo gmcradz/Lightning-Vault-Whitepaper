@@ -10,7 +10,7 @@ Lightning Vault introduces Proof-of-Vault (PoV), a hybrid consensus model combin
 
 Language: Python (Flask-based node, Waitress WSGI server).
 
-Networking: REST + Ethereum JSON-RPC compatibility on port 8545.
+Networking: REST + Ethereum JSON-RPC compatibility on port 5002.
 
 Persistence: JSON-based blockchain state, with backups.
 
